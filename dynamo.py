@@ -13,6 +13,14 @@ class Dynamo:
         item = self.table.get_item(Key={'id': id})
         return item['Item']
 
+    def updateItem(self, id):
+        res = self.table.update_item(
+            Key={
+                "id": id
+            },
+            
+        )
+
     def setDynamo(self,table):
         dynamodb = boto3.resource(
             'dynamodb',
@@ -22,6 +30,3 @@ class Dynamo:
             aws_secret_access_key='ACCESS_KEY')
 
         self.table = dynamodb.Table(table)
-
-dynamo = Dynamo('miko')
-print(dynamo.getItems())
